@@ -4,11 +4,8 @@ Este diretório traz um teste de carga pronto para você medir a performance do
 seu projeto usando o [k6](https://k6.io) — uma ferramenta leve em que os
 cenários são escritos em JavaScript.
 
-> ⚠️ **Rode SEMPRE contra o seu ambiente LOCAL** (o projeto rodando na sua
-> máquina via `docker-compose`). **Não** aponte o teste para
-> `https://eqNN.dsc.rodrigor.com`: o servidor e o **PostgreSQL são
-> compartilhados** com todas as equipes (DSC e APS) e uma carga pesada
-> derrubaria os projetos dos colegas.
+> Rode contra um ambiente local ou de testes isolado. Não execute carga contra
+> a produção sem autorização e sem conhecer os limites do provedor.
 
 ---
 
@@ -102,16 +99,14 @@ O teste padrão só exercita o `/ping`. Para um teste realista, edite
 
 ---
 
-## 5. O que entregar
+## 5. Salvar o resultado
 
-Para a avaliação de performance, gere um resumo e **commite** junto ao projeto:
+Para comparar execuções, gere um resumo local:
 
 ```bash
 k6 run --summary-export=loadtest/resultado.json \
   -e BASE_URL=http://localhost:8080 loadtest/carga.js
 ```
 
-No README principal do projeto, descreva brevemente:
-- Quais rotas foram testadas e com quantos usuários virtuais;
-- O `p(95)` e a taxa de erro obtidos;
-- Gargalos identificados e o que foi (ou seria) feito para melhorar.
+Não versione resultados gerados ou dados sensíveis. Registre no pull request as
+rotas, o número de usuários virtuais, o `p(95)`, a taxa de erro e os gargalos.

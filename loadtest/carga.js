@@ -5,7 +5,7 @@ import { check, sleep, group } from 'k6';
 // Teste de carga e performance — k6 (Radar Tech)
 //
 // IMPORTANTE: rode contra o SEU AMBIENTE LOCAL (suba o projeto com
-// docker-compose antes). NÃO aponte para https://eqNN.dsc.rodrigor.com — o
+// docker-compose antes). Não aponte para um ambiente público sem autorização — o
 // servidor e o PostgreSQL são compartilhados com as outras equipes.
 // ─────────────────────────────────────────────────────────────────────────────
 

@@ -3,11 +3,6 @@ FROM maven:3.9.9-eclipse-temurin-21 AS builder
 WORKDIR /build
 COPY pom.xml .
 RUN mvn dependency:go-offline -B -q
-RUN mvn dependency:copy \
-    -Dartifact=io.opentelemetry.javaagent:opentelemetry-javaagent:2.20.1 \
-    -DoutputDirectory=/build/otel \
-    -Dmdep.stripVersion=true \
-    -B -q
 COPY src ./src
 RUN mvn clean package -DskipTests -B -q
 
@@ -21,21 +16,14 @@ RUN apt-get update && \
 
 WORKDIR /app
 COPY --from=builder /build/target/*.jar app.jar
-COPY --from=builder /build/otel/opentelemetry-javaagent.jar opentelemetry-javaagent.jar
-RUN chown app:app app.jar opentelemetry-javaagent.jar
+RUN chown app:app app.jar
 
 USER app
 EXPOSE 8080
 
-ENV SPRING_PROFILES_ACTIVE=prod \
-    OTEL_SERVICE_NAME=dsc-eq13 \
-    OTEL_EXPORTER_OTLP_ENDPOINT=https://otel.dsc.rodrigor.com \
-    OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf \
-    OTEL_TRACES_EXPORTER=otlp \
-    OTEL_METRICS_EXPORTER=otlp \
-    OTEL_LOGS_EXPORTER=otlp
+ENV SPRING_PROFILES_ACTIVE=prod
 
 HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
     CMD curl -fsS http://localhost:8080/ping >/dev/null || exit 1
 
-ENTRYPOINT ["java", "-javaagent:/app/opentelemetry-javaagent.jar", "-XX:+UseContainerSupport", "-XX:MaxRAMPercentage=75.0", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-XX:+UseContainerSupport", "-XX:MaxRAMPercentage=75.0", "-XX:InitialRAMPercentage=20.0", "-XX:+UseSerialGC", "-jar", "app.jar"]
