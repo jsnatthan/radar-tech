@@ -4,17 +4,17 @@
     <section class="card card-elevated auth-card">
         <span class="badge badge-success">Acesso</span>
         <h1>Entrar no Radar Tech</h1>
-        <p class="u-muted">Use e-mail, usuário e senha ou entre com Google.</p>
+        <p class="u-muted">Use e-mail, usu�rio e senha ou entre com Google.</p>
 
-        <div class="alert alert-error u-mb-6" th:if="${param.error}">
+        <div class="alert alert-error u-mb-6" role="alert" th:if="${param.error}">
             <svg class="icon" aria-hidden="true"><use href="/images/icons.svg#icon-alert-circle"></use></svg>
-            <span>Não foi possível entrar. Confira seus dados.</span>
+            <span>N�o foi poss�vel entrar. Confira seus dados.</span>
         </div>
-        <div class="alert alert-success u-mb-6" th:if="${registered}">
+        <div class="alert alert-success u-mb-6" role="status" th:if="${registered}">
             <svg class="icon" aria-hidden="true"><use href="/images/icons.svg#icon-check"></use></svg>
             <span>Cadastro criado. Entre para continuar.</span>
         </div>
-        <div class="alert alert-success u-mb-6" th:if="${passwordReset}">
+        <div class="alert alert-success u-mb-6" role="status" th:if="${passwordReset}">
             <svg class="icon" aria-hidden="true"><use href="/images/icons.svg#icon-check"></use></svg>
             <span>Senha atualizada. Entre com sua nova senha.</span>
         </div>
@@ -36,7 +36,7 @@
         <form class="js-loading-submit" th:action="@{/login}" method="post">
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
             <div class="form-field">
-                <label for="username">E-mail ou usuário</label>
+                <label for="username">E-mail ou usu�rio</label>
                 <input id="username" class="input" type="text" name="username" autocomplete="username" autofocus>
             </div>
             <div class="form-field">
@@ -47,7 +47,7 @@
             <button class="btn btn-primary btn-full" type="submit">Entrar</button>
         </form>
 
-        <p class="auth-footer-link">Ainda não tem conta? <a th:href="@{/cadastro}">Cadastre-se</a></p>
+        <p class="auth-footer-link">Ainda n�o tem conta? <a th:href="@{/cadastro}">Cadastre-se</a></p>
     </section>
 </div>
 </html>

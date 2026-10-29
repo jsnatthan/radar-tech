@@ -1,6 +1,6 @@
 /*
  * pages/billing.css
- * Estilos das páginas de assinatura (necessária, sucesso, cancelada).
+ * Estilos das p�ginas de assinatura (necess�ria, sucesso, cancelada).
  */
 
 .billing-shell {
@@ -20,7 +20,7 @@
     padding: var(--space-6);
 }
 
-.billing-plan-card h3 {
+.billing-plan-card h2 {
     margin-bottom: var(--space-4);
 }
 

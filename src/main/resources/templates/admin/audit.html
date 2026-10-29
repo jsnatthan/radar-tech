@@ -6,16 +6,21 @@
     <div class="page-header">
         <div>
             <h1>Auditoria</h1>
-            <p class="u-muted">Eventos importantes de autenticação, vagas e candidaturas.</p>
+            <p class="u-muted">Eventos importantes de autentica��o, vagas e candidaturas.</p>
         </div>
     </div>
 
     <form class="filter-bar" th:action="@{/admin/auditoria}" method="get">
-        <input class="input" name="action" placeholder="Ação" th:value="${action}">
-        <input class="input" name="actor" placeholder="Usuário/e-mail" th:value="${actor}">
-        <input class="input" name="entityType" placeholder="Entidade" th:value="${entityType}">
-        <input class="input" type="date" name="from" th:value="${from}">
-        <input class="input" type="date" name="to" th:value="${to}">
+        <label class="sr-only" for="filter-audit-action">A��o</label>
+        <input class="input" name="action" placeholder="A��o" th:value="${action}" id="filter-audit-action">
+        <label class="sr-only" for="filter-audit-actor">Usu�rio ou e-mail</label>
+        <input class="input" name="actor" placeholder="Usu�rio/e-mail" th:value="${actor}" id="filter-audit-actor">
+        <label class="sr-only" for="filter-audit-entityType">Entidade</label>
+        <input class="input" name="entityType" placeholder="Entidade" th:value="${entityType}" id="filter-audit-entityType">
+        <label class="sr-only" for="filter-audit-from">Data inicial</label>
+        <input class="input" type="date" name="from" th:value="${from}" id="filter-audit-from">
+        <label class="sr-only" for="filter-audit-to">Data final</label>
+        <input class="input" type="date" name="to" th:value="${to}" id="filter-audit-to">
         <button class="btn btn-primary" type="submit">Filtrar</button>
         <a class="btn btn-ghost" th:href="@{/admin/auditoria}">Limpar</a>
     </form>
@@ -23,15 +28,15 @@
     <div class="table-wrap">
         <table class="data-table">
             <thead>
-            <tr><th>Data</th><th>Ação</th><th>Usuário</th><th>Entidade</th><th>Descrição</th><th>IP</th></tr>
+            <tr><th scope="col">Data</th><th scope="col">A��o</th><th scope="col">Usu�rio</th><th scope="col">Entidade</th><th scope="col">Descri��o</th><th scope="col">IP</th></tr>
             </thead>
             <tbody>
             <tr th:each="log : ${logs}">
                 <td th:text="${#temporals.format(log.createdAt, 'dd/MM/yyyy HH:mm')}">Data</td>
-                <td><span class="badge badge-teal" th:text="${log.action}">AÇÃO</span></td>
+                <td><span class="badge badge-teal" th:text="${log.action}">A��O</span></td>
                 <td th:text="${log.actorEmail ?: 'Sistema'}">email</td>
                 <td th:text="|${log.entityType ?: '-'} #${log.entityId ?: '-'}|">Entidade</td>
-                <td th:text="${log.description}">Descrição</td>
+                <td th:text="${log.description}">Descri��o</td>
                 <td th:text="${log.ipAddress ?: '-'}">IP</td>
             </tr>
             </tbody>

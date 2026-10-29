@@ -43,6 +43,7 @@ function initMobileMenu() {
     const close = () => {
         links.dataset.open = 'false';
         hamburger.setAttribute('aria-expanded', 'false');
+        hamburger.setAttribute('aria-label', 'Abrir menu de navega��o');
         document.body.dataset.navOpen = 'false';
         if (scrim) scrim.dataset.open = 'false';
     };
@@ -50,8 +51,10 @@ function initMobileMenu() {
     const open = () => {
         links.dataset.open = 'true';
         hamburger.setAttribute('aria-expanded', 'true');
+        hamburger.setAttribute('aria-label', 'Fechar menu de navega��o');
         document.body.dataset.navOpen = 'true';
         if (scrim) scrim.dataset.open = 'true';
+        links.querySelector('a, button')?.focus();
     };
 
     hamburger.addEventListener('click', () => {
@@ -68,6 +71,11 @@ function initMobileMenu() {
     });
 
     links.querySelectorAll('a').forEach((link) => link.addEventListener('click', close));
+    links.addEventListener('focusout', () => {
+        requestAnimationFrame(() => {
+            if (!links.contains(document.activeElement) && document.activeElement !== hamburger) close();
+        });
+    });
 
     window.addEventListener('resize', () => {
         if (window.innerWidth >= 1024) close();
@@ -101,9 +109,12 @@ function initProfileDropdown() {
     });
 
     document.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape') {
+        if (event.key === 'Escape' && panel.dataset.open === 'true') {
             close();
             toggle.focus();
         }
+    });
+    menu.addEventListener('focusout', () => {
+        requestAnimationFrame(() => { if (!menu.contains(document.activeElement)) close(); });
     });
 }

@@ -1,0 +1,52 @@
+# Applied after prod. Secrets are supplied by Render, never committed here.
+server:
+  address: 0.0.0.0
+  port: ${PORT:10000}
+  forward-headers-strategy: framework
+  servlet:
+    session:
+      cookie:
+        secure: true
+        http-only: true
+        same-site: lax
+  tomcat:
+    threads:
+      max: 20
+      min-spare: 2
+
+spring:
+  datasource:
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+    hikari:
+      maximum-pool-size: 3
+      minimum-idle: 0
+      connection-timeout: 30000
+      idle-timeout: 30000
+      max-lifetime: 300000
+  jpa:
+    open-in-view: false
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            redirect-uri: "${GOOGLE_REDIRECT_URI:{baseUrl}/login/oauth2/code/{registrationId}}"
+
+app:
+  password-reset:
+    public-url: ${APP_PUBLIC_URL:${RENDER_EXTERNAL_URL:http://localhost:8080}}
+
+stripe:
+  success-url: ${STRIPE_SUCCESS_URL:${RENDER_EXTERNAL_URL:http://localhost:8080}/divulgar/assinar/sucesso}
+  cancel-url: ${STRIPE_CANCEL_URL:${RENDER_EXTERNAL_URL:http://localhost:8080}/divulgar/assinar/cancelado}
+
+ai:
+  litellm:
+    enabled: ${LITELLM_ENABLED:false}
+
+management:
+  health:
+    mail:
+      enabled: false

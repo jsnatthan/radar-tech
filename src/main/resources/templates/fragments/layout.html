@@ -19,17 +19,18 @@
                     root.dataset.theme = savedTheme;
                 }
             } catch (_) {
-                // Mantém a preferência fornecida pelo servidor quando o armazenamento está indisponível.
+                // Mant�m a prefer�ncia fornecida pelo servidor quando o armazenamento est� indispon�vel.
             }
         })();
     </script>
     <link rel="stylesheet" th:href="@{/css/app.css}">
 </head>
 <body>
+<a class="skip-link" href="#conteudo-principal">Pular para o conte�do principal</a>
 <div class="site-shell">
     <header class="site-header" id="site-header">
         <div class="site-header-inner">
-            <a class="site-brand" th:href="@{/}" aria-label="Radar Tech - página inicial">
+            <a class="site-brand" th:href="@{/}" aria-label="Radar Tech - p�gina inicial">
                 <span class="site-brand-mark" aria-hidden="true">
                     <img class="theme-logo-light" th:src="@{/images/radartech-logo-transparent.png}" alt="">
                     <img class="theme-logo-dark" th:src="@{/images/radartech-logo-dark.png}" alt="">
@@ -40,11 +41,11 @@
                 </span>
             </a>
 
-            <nav class="site-nav-links" id="site-nav-links" aria-label="Navegação principal">
+            <nav class="site-nav-links" id="site-nav-links" aria-label="Navega��o principal">
                 <a th:href="@{/vagas}">Buscar vagas</a>
                 <a th:href="@{/divulgar}">Para empresas</a>
                 <a th:href="@{${viewer != null} ? '/minha-conta#assistente-ia' : '/login'}">Recursos</a>
-                <a class="u-hide-desktop" th:if="${viewer != null && viewer.role.name() == 'ROLE_ADMIN'}" th:href="@{/admin}">Administração</a>
+                <a class="u-hide-desktop" th:if="${viewer != null && viewer.role.name() == 'ROLE_ADMIN'}" th:href="@{/admin}">Administra��o</a>
                 <a class="u-hide-desktop" th:if="${viewer != null}" th:href="@{/minha-conta}">Minha conta</a>
                 <a class="u-hide-desktop" th:if="${viewer == null}" th:href="@{/login}">Entrar</a>
                 <a class="u-hide-desktop" th:if="${viewer == null}" th:href="@{/cadastro}">Criar conta</a>
@@ -66,7 +67,7 @@
                     <a th:if="${viewer == null}" class="btn btn-outline" th:href="@{/cadastro}">Criar conta</a>
 
                     <div class="dropdown" id="profile-menu" th:if="${viewer != null}">
-                        <button type="button" class="nav-profile" aria-haspopup="true" aria-expanded="false" aria-controls="profile-menu-panel">
+                        <button type="button" class="nav-profile" aria-expanded="false" aria-controls="profile-menu-panel">
                             <span class="nav-avatar">
                                 <img th:if="${viewer.photoContent != null}"
                                      th:src="@{/minha-conta/foto(v=${viewer.updatedAt.toEpochMilli()})}"
@@ -78,17 +79,17 @@
                             <span th:text="${viewer.name}">Minha conta</span>
                             <svg class="icon" aria-hidden="true"><use href="/images/icons.svg#icon-chevron-down"></use></svg>
                         </button>
-                        <div class="dropdown-panel" id="profile-menu-panel" role="menu">
-                            <a role="menuitem" th:href="@{/minha-conta}">
+                        <div class="dropdown-panel" id="profile-menu-panel">
+                            <a th:href="@{/minha-conta}">
                                 <svg class="icon" aria-hidden="true"><use href="/images/icons.svg#icon-user"></use></svg>
                                 <span>Minha conta</span>
                             </a>
-                            <a role="menuitem" th:if="${viewer.role.name() == 'ROLE_ADMIN'}" th:href="@{/admin}">
+                            <a th:if="${viewer.role.name() == 'ROLE_ADMIN'}" th:href="@{/admin}">
                                 <svg class="icon" aria-hidden="true"><use href="/images/icons.svg#icon-shield"></use></svg>
-                                <span>Administração</span>
+                                <span>Administra��o</span>
                             </a>
                             <form th:action="@{/logout}" method="post">
-                                <button type="submit" role="menuitem">
+                                <button type="submit">
                                     <svg class="icon" aria-hidden="true"><use href="/images/icons.svg#icon-logout"></use></svg>
                                     <span>Sair</span>
                                 </button>
@@ -103,14 +104,14 @@
                 </div>
             </div>
 
-            <button type="button" class="nav-hamburger" id="nav-hamburger" aria-expanded="false" aria-controls="site-nav-links" aria-label="Abrir menu de navegação">
+            <button type="button" class="nav-hamburger" id="nav-hamburger" aria-expanded="false" aria-controls="site-nav-links" aria-label="Abrir menu de navega��o">
                 <svg class="icon" aria-hidden="true"><use href="/images/icons.svg#icon-menu"></use></svg>
             </button>
         </div>
         <div class="mobile-panel-scrim" id="nav-scrim"></div>
     </header>
 
-    <main class="site-main">
+    <main class="site-main" id="conteudo-principal" tabindex="-1">
         <th:block th:replace="${content}"></th:block>
     </main>
 
@@ -118,9 +119,9 @@
         <div class="container site-footer-inner">
             <div class="site-footer-brand">
                 <strong>Radar Tech</strong>
-                <span>Conectando talentos a oportunidades de tecnologia na Paraíba e no Brasil.</span>
+                <span>Conectando talentos a oportunidades de tecnologia na Para�ba e no Brasil.</span>
             </div>
-            <nav class="site-footer-links" aria-label="Links do rodapé">
+            <nav class="site-footer-links" aria-label="Links do rodap�">
                 <a th:href="@{/vagas}">Buscar vagas</a>
                 <a th:href="@{/divulgar}">Para empresas</a>
                 <a th:href="@{${viewer != null} ? '/minha-conta#assistente-ia' : '/login'}">Recursos</a>

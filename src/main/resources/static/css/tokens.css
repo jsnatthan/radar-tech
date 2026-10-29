@@ -1,7 +1,7 @@
 /*
  * tokens.css
- * Tokens de design do Radar Tech: cores, tipografia, espaçamento,
- * raios, sombras e transições. Nenhuma regra de layout ou componente
+ * Tokens de design do Radar Tech: cores, tipografia, espa�amento,
+ * raios, sombras e transi��es. Nenhuma regra de layout ou componente
  * deve viver neste arquivo.
  */
 
@@ -12,8 +12,8 @@
     --color-navy-800: #13213D;
     --color-navy-700: #1E3152;
 
-    --color-teal-600: #0097A7;
-    --color-teal-500: #00B4C6;
+    --color-teal-600: #006B76;
+    --color-teal-500: #007E8A;
     --color-teal-400: #23C7D6;
     --color-teal-100: #D9F7FA;
     --color-teal-50: #EFFCFC;
@@ -24,16 +24,16 @@
     --color-border: #DDE6EE;
 
     --color-text-primary: #0B132B;
-    --color-text-secondary: #64748B;
-    --color-text-muted: #8795A5;
+    --color-text-secondary: #526176;
+    --color-text-muted: #58677A;
 
-    --color-success: #0F9D76;
+    --color-success: #087452;
     --color-success-soft: #E8F8F2;
-    --color-warning: #D99614;
+    --color-warning: #855800;
     --color-warning-soft: #FFF7DF;
-    --color-danger: #D64545;
+    --color-danger: #B52B35;
     --color-danger-soft: #FFF0F0;
-    --color-info: #1976B9;
+    --color-info: #12649E;
     --color-info-soft: #EAF5FC;
 
     /* Tipografia */
@@ -53,7 +53,7 @@
     --font-size-small: 0.8125rem;
     --font-size-label: 0.75rem;
 
-    /* Espaçamento (múltiplos de 4) */
+    /* Espa�amento (m�ltiplos de 4) */
     --space-1: 4px;
     --space-2: 8px;
     --space-3: 12px;
@@ -80,7 +80,7 @@
     --shadow-lg: 0 20px 55px rgba(15, 23, 42, 0.13);
     --shadow-focus: 0 0 0 4px rgba(0, 180, 198, 0.22);
 
-    /* Transições */
+    /* Transi��es */
     --transition-fast: 160ms ease;
     --transition-base: 220ms ease;
     --transition-enter: 320ms ease;
@@ -88,7 +88,7 @@
     /* Container */
     --container-max: 1280px;
 
-    /* Alias semânticos usados pelos demais arquivos */
+    /* Alias sem�nticos usados pelos demais arquivos */
     --color-action: var(--color-teal-500);
     --color-action-hover: var(--color-teal-600);
     --color-action-soft: var(--color-teal-50);

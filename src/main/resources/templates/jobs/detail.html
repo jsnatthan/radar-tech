@@ -12,11 +12,11 @@
                 <span class="job-card__avatar" aria-hidden="true"
                       th:text="${job.company != null && !job.company.isBlank() ? #strings.substring(job.company, 0, 1) : 'R'}">R</span>
                 <div>
-                    <h1 th:text="${job.title}">Título da vaga</h1>
+                    <h1 th:text="${job.title}">T�tulo da vaga</h1>
                     <div class="job-detail-company-line">
                         <span><svg class="icon" aria-hidden="true"><use href="/images/icons.svg#icon-building"></use></svg><strong th:text="${job.company}">Empresa</strong></span>
                         <span th:if="${job.city != null && !job.city.isBlank()}"><svg class="icon" aria-hidden="true"><use href="/images/icons.svg#icon-map-pin"></use></svg><span th:text="${job.city}">Cidade</span></span>
-                        <span><svg class="icon" aria-hidden="true"><use href="/images/icons.svg#icon-eye"></use></svg><span th:text="${job.views} + ' visualizações'">0 visualizações</span></span>
+                        <span><svg class="icon" aria-hidden="true"><use href="/images/icons.svg#icon-eye"></use></svg><span th:text="${job.views} + ' visualiza��es'">0 visualiza��es</span></span>
                     </div>
                 </div>
             </div>
@@ -32,8 +32,8 @@
                 <span th:text="${job.salaryRange}">Faixa salarial</span>
             </p>
 
-            <h2>Descrição</h2>
-            <p th:text="${job.description}">Descrição</p>
+            <h2>Descri��o</h2>
+            <p th:text="${job.description}">Descri��o</p>
 
             <th:block th:if="${job.requirements != null && !job.requirements.isBlank()}">
                 <h2>Requisitos</h2>
@@ -50,30 +50,30 @@
         <aside class="job-sidebar">
             <div class="card" th:if="${job.applyUrl == null || job.applyUrl.isBlank()}">
                 <h2>Candidatar-se</h2>
-                <div class="alert alert-success u-mb-4" th:if="${applied}">
+                <div class="alert alert-success u-mb-4" role="status" th:if="${applied}">
                     <svg class="icon" aria-hidden="true"><use href="/images/icons.svg#icon-check"></use></svg>
                     <span>Candidatura registrada. Boa sorte!</span>
                 </div>
                 <div class="application-resume u-mb-4" th:if="${applicantUser != null && applicantUser.resumeContent != null}">
                     <svg class="icon" aria-hidden="true"><use href="/images/icons.svg#icon-file-text"></use></svg>
                     <div>
-                        <strong>Currículo do perfil</strong>
+                        <strong>Curr�culo do perfil</strong>
                         <span th:text="${applicantUser.resumeFileName}">curriculo.pdf</span>
-                        <small>Será anexado automaticamente a esta candidatura.</small>
+                        <small>Ser� anexado automaticamente a esta candidatura.</small>
                     </div>
                 </div>
                 <div class="application-resume application-resume--missing u-mb-4"
                      th:if="${applicantUser != null && applicantUser.resumeContent == null}">
                     <svg class="icon" aria-hidden="true"><use href="/images/icons.svg#icon-file-text"></use></svg>
                     <div>
-                        <strong>Currículo ainda não cadastrado</strong>
-                        <small><a th:href="@{/minha-conta}">Adicione um PDF ao seu perfil</a> para anexá-lo automaticamente.</small>
+                        <strong>Curr�culo ainda n�o cadastrado</strong>
+                        <small><a th:href="@{/minha-conta}">Adicione um PDF ao seu perfil</a> para anex�-lo automaticamente.</small>
                     </div>
                 </div>
                 <div class="application-resume application-resume--missing u-mb-4" th:if="${applicantUser == null}">
                     <svg class="icon" aria-hidden="true"><use href="/images/icons.svg#icon-file-text"></use></svg>
                     <div>
-                        <strong>Quer enviar seu currículo?</strong>
+                        <strong>Quer enviar seu curr�culo?</strong>
                         <small><a th:href="@{/login}">Entre na sua conta</a> e use o PDF salvo no perfil.</small>
                     </div>
                 </div>
@@ -81,21 +81,21 @@
                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                     <div class="form-field">
                         <label for="applicantName">Nome</label>
-                        <input id="applicantName" class="input" th:classappend="${#fields.hasErrors('applicantName')} ? 'is-invalid' : ''" th:field="*{applicantName}" placeholder="Seu nome">
-                        <span class="form-field__error" th:if="${#fields.hasErrors('applicantName')}" th:errors="*{applicantName}"></span>
+                        <input id="applicantName" class="input" th:classappend="${#fields.hasErrors('applicantName')} ? 'is-invalid' : ''" th:field="*{applicantName}" placeholder="Seu nome" th:attr="aria-invalid=${#fields.hasErrors('applicantName')},aria-describedby=${#fields.hasErrors('applicantName')} ? 'detail-applicantName-error' : null">
+                        <span id="detail-applicantName-error" class="form-field__error" th:if="${#fields.hasErrors('applicantName')}" th:errors="*{applicantName}"></span>
                     </div>
                     <div class="form-field">
                         <label for="applicantEmail">Email</label>
-                        <input id="applicantEmail" class="input" th:classappend="${#fields.hasErrors('applicantEmail')} ? 'is-invalid' : ''" th:field="*{applicantEmail}" placeholder="seu.email@exemplo.com">
-                        <span class="form-field__error" th:if="${#fields.hasErrors('applicantEmail')}" th:errors="*{applicantEmail}"></span>
+                        <input id="applicantEmail" class="input" th:classappend="${#fields.hasErrors('applicantEmail')} ? 'is-invalid' : ''" th:field="*{applicantEmail}" placeholder="seu.email@exemplo.com" th:attr="aria-invalid=${#fields.hasErrors('applicantEmail')},aria-describedby=${#fields.hasErrors('applicantEmail')} ? 'detail-applicantEmail-error' : null">
+                        <span id="detail-applicantEmail-error" class="form-field__error" th:if="${#fields.hasErrors('applicantEmail')}" th:errors="*{applicantEmail}"></span>
                     </div>
                     <div class="form-field">
-                        <label for="linkedinUrl">LinkedIn ou portfólio</label>
+                        <label for="linkedinUrl">LinkedIn ou portf�lio</label>
                         <input id="linkedinUrl" class="input" th:field="*{linkedinUrl}" placeholder="https://linkedin.com/in/...">
                     </div>
                     <div class="form-field">
                         <label for="message">Mensagem</label>
-                        <textarea id="message" class="textarea" th:field="*{message}" placeholder="Conte rapidamente por que você combina com a vaga"></textarea>
+                        <textarea id="message" class="textarea" th:field="*{message}" placeholder="Conte rapidamente por que voc� combina com a vaga"></textarea>
                     </div>
                     <button class="btn btn-success btn-full" type="submit">Enviar candidatura</button>
                 </form>
@@ -116,11 +116,11 @@
                         <span class="related-job__avatar" aria-hidden="true"
                               th:text="${relatedJob.company != null && !relatedJob.company.isBlank() ? #strings.substring(relatedJob.company, 0, 1) : 'R'}">R</span>
                         <span class="related-job__content">
-                            <strong th:text="${relatedJob.title}">Título da vaga</strong>
+                            <strong th:text="${relatedJob.title}">T�tulo da vaga</strong>
                             <span class="related-job__company" th:text="${relatedJob.company}">Empresa</span>
                             <span class="related-job__badges">
                                 <span class="badge badge-teal" th:text="${relatedJob.locationType.label}">Remota</span>
-                                <span class="badge badge-navy" th:text="${relatedJob.seniority.label}">Júnior</span>
+                                <span class="badge badge-navy" th:text="${relatedJob.seniority.label}">J�nior</span>
                             </span>
                         </span>
                         <svg class="icon related-job__arrow" aria-hidden="true"><use href="/images/icons.svg#icon-arrow-up-right"></use></svg>
@@ -128,7 +128,7 @@
                 </div>
 
                 <div class="related-jobs__empty" th:if="${relatedJobs == null || relatedJobs.isEmpty()}">
-                    <p>Novas oportunidades serão publicadas em breve.</p>
+                    <p>Novas oportunidades ser�o publicadas em breve.</p>
                     <a class="btn btn-outline btn-full" th:href="@{/vagas}">Ver todas as vagas</a>
                 </div>
             </section>

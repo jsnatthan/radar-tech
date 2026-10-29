@@ -1,23 +1,23 @@
 <!DOCTYPE html>
-<html th:replace="~{fragments/layout :: shell('Assinatura Necessária', ~{::div})}" xmlns:th="http://www.thymeleaf.org">
+<html th:replace="~{fragments/layout :: shell('Assinatura Necess�ria', ~{::div})}" xmlns:th="http://www.thymeleaf.org">
 <div class="container billing-shell">
     <section>
         <span class="badge badge-teal">Para empresas</span>
-        <h1>Assinatura necessária</h1>
-        <p class="u-muted">Para divulgar vagas em nossa plataforma, você precisa de uma assinatura ativa. Nosso plano mensal permite publicações ilimitadas de vagas com grande visibilidade.</p>
+        <h1>Assinatura necess�ria</h1>
+        <p class="u-muted">Para divulgar vagas em nossa plataforma, voc� precisa de uma assinatura ativa. Nosso plano mensal permite publica��es ilimitadas de vagas com grande visibilidade.</p>
 
-        <div class="alert alert-error u-mt-6" th:if="${billingError}" th:text="${billingError}">Erro ao iniciar pagamento</div>
+        <div class="alert alert-error u-mt-6" role="alert" th:if="${billingError}" th:text="${billingError}">Erro ao iniciar pagamento</div>
         <div class="alert alert-warning u-mt-6" th:if="${subscriptionRequired}">
             <svg class="icon" aria-hidden="true"><use href="/images/icons.svg#icon-alert-circle"></use></svg>
-            <span>Você precisa de uma assinatura ativa para divulgar vagas.</span>
+            <span>Voc� precisa de uma assinatura ativa para divulgar vagas.</span>
         </div>
 
         <div class="billing-plan-card">
-            <h3>Plano Mensal</h3>
+            <h2>Plano Mensal</h2>
             <ul class="billing-plan-list">
-                <li><svg class="icon" aria-hidden="true"><use href="/images/icons.svg#icon-check"></use></svg><span>Publicação de vagas ilimitadas</span></li>
-                <li><svg class="icon" aria-hidden="true"><use href="/images/icons.svg#icon-check"></use></svg><span>Destaque na página inicial</span></li>
-                <li><svg class="icon" aria-hidden="true"><use href="/images/icons.svg#icon-check"></use></svg><span>Acesso a currículos de candidatos</span></li>
+                <li><svg class="icon" aria-hidden="true"><use href="/images/icons.svg#icon-check"></use></svg><span>Publica��o de vagas ilimitadas</span></li>
+                <li><svg class="icon" aria-hidden="true"><use href="/images/icons.svg#icon-check"></use></svg><span>Destaque na p�gina inicial</span></li>
+                <li><svg class="icon" aria-hidden="true"><use href="/images/icons.svg#icon-check"></use></svg><span>Acesso a curr�culos de candidatos</span></li>
             </ul>
 
             <form th:action="@{/divulgar/assinar/checkout}" method="post" class="js-loading-submit">
@@ -28,7 +28,7 @@
             <p class="billing-status-line" th:if="${subscription != null}">
                 <span>Status atual:</span>
                 <span class="badge badge-navy" th:text="${subscription.status}">PENDING</span>
-                <span th:if="${subscription.validUntil != null}" th:text="|válido até ${#temporals.format(subscription.validUntil, 'dd/MM/yyyy HH:mm')}|"></span>
+                <span th:if="${subscription.validUntil != null}" th:text="|v�lido at� ${#temporals.format(subscription.validUntil, 'dd/MM/yyyy HH:mm')}|"></span>
             </p>
         </div>
 
