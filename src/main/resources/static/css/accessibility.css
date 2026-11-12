@@ -1,4 +1,4 @@
-/* WCAG: foco percept�vel, navega��o por teclado e leitura sem perda de conte�do. */
+/* WCAG: foco perceptível, navegação por teclado e leitura sem perda de conteúdo. */
 :root { --color-focus: #005FCC; }
 [data-theme="dark"] { --color-focus: #FFD166; }
 :where(a, button, input, select, textarea, [tabindex]):focus-visible {

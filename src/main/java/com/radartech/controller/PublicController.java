@@ -22,6 +22,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import java.text.Collator;
+import java.util.Comparator;
+import java.util.Locale;
+import com.radartech.domain.JobPosting;
 
 @Controller
 public class PublicController {
@@ -63,8 +67,17 @@ public class PublicController {
     @GetMapping("/vagas")
     public String jobs(@RequestParam(defaultValue = "") String q,
                        @RequestParam(defaultValue = "") String location,
+                       @RequestParam(defaultValue = "recentes") String ordem,
                        Model model) {
-        model.addAttribute("jobs", jobService.searchPublished(q, location));
+        var results = jobService.searchPublished(q, location);
+        boolean alphabetical = "cargo".equals(ordem);
+        if (alphabetical) {
+            var titles = Collator.getInstance(Locale.forLanguageTag("pt-BR"));
+            results = results.stream().sorted(Comparator.comparing(JobPosting::getTitle, titles)
+                    .thenComparing(JobPosting::getId)).toList();
+        }
+        model.addAttribute("jobs", results);
+        model.addAttribute("ordem", alphabetical ? "cargo" : "recentes");
         model.addAttribute("q", q);
         model.addAttribute("selectedLocation", location);
         return "jobs/list";
@@ -211,9 +224,7 @@ public class PublicController {
     private JobPostForm prefillForm(AppUser user) {
         return new JobPostForm(
                 "", user.getName(), user.getEmail(),
-                com.radartech.domain.JobLocationType.REMOTE, "",
-                com.radartech.domain.Seniority.JUNIOR,
-                com.radartech.domain.ContractType.CLT,
+                null, "", null, null,
                 "", "", "", ""
         );
     }

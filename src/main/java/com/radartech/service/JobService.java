@@ -11,6 +11,8 @@ import com.radartech.repository.CandidateApplicationRepository;
 import com.radartech.repository.JobPostingRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Locale;
@@ -41,6 +43,18 @@ public class JobService {
     @Transactional(readOnly = true)
     public List<JobPosting> searchPublished(String keyword, String location) {
         return jobPostingRepository.searchPublished(normalize(keyword), parseLocation(location));
+    }
+
+    @Transactional(readOnly = true)
+    public JobPosting findPublished(Long id) {
+        return jobPostingRepository.findByIdAndStatus(id, JobStatus.PUBLISHED)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Vaga não encontrada"));
+    }
+
+    @Transactional(readOnly = true)
+    public List<JobPosting> findSavedPublished(List<Long> ids) {
+        if (ids.isEmpty()) return List.of();
+        return jobPostingRepository.findByIdInAndStatusOrderByCreatedAtDesc(ids, JobStatus.PUBLISHED);
     }
 
     @Transactional(readOnly = true)

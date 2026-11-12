@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html th:replace="~{fragments/layout :: shell(${sharing ? 'Compartilhar vaga' : 'Conferir fonte'}, ~{::div})}" xmlns:th="http://www.thymeleaf.org">
+<div class="container page-section">
+    <section class="card unit-two-review" aria-labelledby="source-title">
+        <h1 id="source-title" th:text="${sharing ? 'Revise antes de compartilhar' : 'Conferir fonte'}"></h1>
+        <dl class="unit-two-facts">
+            <dt>Vaga</dt><dd th:text="${job.title}"></dd>
+            <dt>Empresa informada</dt><dd th:text="${job.company}"></dd>
+            <dt th:if="${job.createdAt != null}">Publicada em</dt>
+            <dd th:if="${job.createdAt != null}" th:text="${#temporals.format(job.createdAt, 'dd/MM/yyyy')}"></dd>
+            <dt>Origem</dt><dd th:text="${sourceHost != null ? sourceHost : 'Anúncio no Radar Tech, sem fonte externa disponível'}"></dd>
+        </dl>
+        <p th:if="${sourceUrl != null}">A fonte abre em outro site. Confira os requisitos e o domínio antes de enviar seus dados.</p>
+        <div class="form-field" th:if="${sharing}" data-share-job>
+            <label for="share-job-link">Link desta vaga no Radar Tech</label>
+            <input class="input" id="share-job-link" readonly th:value="@{/vagas/{id}(id=${job.id})}">
+            <button class="btn btn-primary" type="button" data-copy-job hidden>Copiar link da vaga</button>
+            <p role="status" data-copy-status></p>
+        </div>
+        <div class="unit-two-actions">
+            <a class="btn btn-outline" th:href="@{/vagas/{id}(id=${job.id})}">Voltar aos detalhes</a>
+            <a class="btn btn-outline" th:if="${sourceUrl != null}" th:href="${sourceUrl}"
+               target="_blank" rel="noopener noreferrer">Abrir fonte original (nova aba)</a>
+        </div>
+    </section>
+</div>
+</html>

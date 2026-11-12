@@ -19,18 +19,18 @@
                     root.dataset.theme = savedTheme;
                 }
             } catch (_) {
-                // Mant�m a prefer�ncia fornecida pelo servidor quando o armazenamento est� indispon�vel.
+                // Mantém a preferência fornecida pelo servidor quando o armazenamento está indisponível.
             }
         })();
     </script>
     <link rel="stylesheet" th:href="@{/css/app.css}">
 </head>
 <body>
-<a class="skip-link" href="#conteudo-principal">Pular para o conte�do principal</a>
+<a class="skip-link" href="#conteudo-principal">Pular para o conteúdo principal</a>
 <div class="site-shell">
     <header class="site-header" id="site-header">
         <div class="site-header-inner">
-            <a class="site-brand" th:href="@{/}" aria-label="Radar Tech - p�gina inicial">
+            <a class="site-brand" th:href="@{/}" aria-label="Radar Tech - página inicial">
                 <span class="site-brand-mark" aria-hidden="true">
                     <img class="theme-logo-light" th:src="@{/images/radartech-logo-transparent.png}" alt="">
                     <img class="theme-logo-dark" th:src="@{/images/radartech-logo-dark.png}" alt="">
@@ -41,11 +41,12 @@
                 </span>
             </a>
 
-            <nav class="site-nav-links" id="site-nav-links" aria-label="Navega��o principal">
+            <nav class="site-nav-links" id="site-nav-links" aria-label="Navegação principal">
                 <a th:href="@{/vagas}">Buscar vagas</a>
+                <a th:href="@{/vagas/salvas}">Vagas salvas</a>
                 <a th:href="@{/divulgar}">Para empresas</a>
                 <a th:href="@{${viewer != null} ? '/minha-conta#assistente-ia' : '/login'}">Recursos</a>
-                <a class="u-hide-desktop" th:if="${viewer != null && viewer.role.name() == 'ROLE_ADMIN'}" th:href="@{/admin}">Administra��o</a>
+                <a class="u-hide-desktop" th:if="${viewer != null && viewer.role.name() == 'ROLE_ADMIN'}" th:href="@{/admin}">Administração</a>
                 <a class="u-hide-desktop" th:if="${viewer != null}" th:href="@{/minha-conta}">Minha conta</a>
                 <a class="u-hide-desktop" th:if="${viewer == null}" th:href="@{/login}">Entrar</a>
                 <a class="u-hide-desktop" th:if="${viewer == null}" th:href="@{/cadastro}">Criar conta</a>
@@ -86,7 +87,7 @@
                             </a>
                             <a th:if="${viewer.role.name() == 'ROLE_ADMIN'}" th:href="@{/admin}">
                                 <svg class="icon" aria-hidden="true"><use href="/images/icons.svg#icon-shield"></use></svg>
-                                <span>Administra��o</span>
+                                <span>Administração</span>
                             </a>
                             <form th:action="@{/logout}" method="post">
                                 <button type="submit">
@@ -104,7 +105,7 @@
                 </div>
             </div>
 
-            <button type="button" class="nav-hamburger" id="nav-hamburger" aria-expanded="false" aria-controls="site-nav-links" aria-label="Abrir menu de navega��o">
+            <button type="button" class="nav-hamburger" id="nav-hamburger" aria-expanded="false" aria-controls="site-nav-links" aria-label="Abrir menu de navegação">
                 <svg class="icon" aria-hidden="true"><use href="/images/icons.svg#icon-menu"></use></svg>
             </button>
         </div>
@@ -119,9 +120,9 @@
         <div class="container site-footer-inner">
             <div class="site-footer-brand">
                 <strong>Radar Tech</strong>
-                <span>Conectando talentos a oportunidades de tecnologia na Para�ba e no Brasil.</span>
+                <span>Conectando talentos a oportunidades de tecnologia na Paraíba e no Brasil.</span>
             </div>
-            <nav class="site-footer-links" aria-label="Links do rodap�">
+            <nav class="site-footer-links" aria-label="Links do rodapé">
                 <a th:href="@{/vagas}">Buscar vagas</a>
                 <a th:href="@{/divulgar}">Para empresas</a>
                 <a th:href="@{${viewer != null} ? '/minha-conta#assistente-ia' : '/login'}">Recursos</a>

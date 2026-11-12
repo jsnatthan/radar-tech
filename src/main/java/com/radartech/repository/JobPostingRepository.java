@@ -16,6 +16,7 @@ public interface JobPostingRepository extends JpaRepository<JobPosting, Long> {
     List<JobPosting> findTop4ByStatusAndIdNotOrderByCreatedAtDesc(JobStatus status, Long id);
     List<JobPosting> findAllByOrderByCreatedAtDesc();
     Optional<JobPosting> findByIdAndStatus(Long id, JobStatus status);
+    List<JobPosting> findByIdInAndStatusOrderByCreatedAtDesc(List<Long> ids, JobStatus status);
     long countByStatus(JobStatus status);
     long countByLocationTypeAndStatus(JobLocationType locationType, JobStatus status);
     long countByCreatedAtAfter(Instant createdAt);
@@ -30,8 +31,9 @@ public interface JobPostingRepository extends JpaRepository<JobPosting, Long> {
               and (:keyword is null or :keyword = ''
                    or lower(j.title) like lower(concat('%', :keyword, '%'))
                    or lower(j.company) like lower(concat('%', :keyword, '%'))
-                   or lower(j.description) like lower(concat('%', :keyword, '%')))
-            order by j.createdAt desc
+                   or lower(j.description) like lower(concat('%', :keyword, '%'))
+                   or lower(j.requirements) like lower(concat('%', :keyword, '%')))
+            order by j.createdAt desc, j.id desc
             """)
     List<JobPosting> searchPublished(@Param("keyword") String keyword,
                                      @Param("locationType") JobLocationType locationType);

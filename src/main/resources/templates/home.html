@@ -6,13 +6,13 @@
         <div class="hero-content">
             <span class="hero-eyebrow">Radar de oportunidades tech</span>
             <h1 class="hero-title">Sua carreira em tecnologia começa <span class="highlight">aqui.</span></h1>
-            <p class="hero-text">Encontre oportunidades em tecnologia selecionadas para estudantes, profissionais e empresas que estão construindo o futuro.</p>
+            <p class="hero-text">Encontre estágios e vagas em desenvolvimento, dados, produto e design. Explore as oportunidades gratuitamente, sem precisar de conta.</p>
 
             <form class="hero-search" th:action="@{/vagas}" method="get" role="search">
                 <label for="hero-search-q" class="sr-only">Cargo, tecnologia ou empresa</label>
                 <div class="hero-search-field">
                     <svg class="icon" aria-hidden="true"><use href="/images/icons.svg#icon-search"></use></svg>
-                    <input id="hero-search-q" type="search" name="q" placeholder="Cargo, tecnologia ou empresa">
+                    <input id="hero-search-q" type="search" name="q" placeholder="Ex.: estágio, Java ou UX">
                 </div>
                 <div class="hero-search-divider" aria-hidden="true"></div>
                 <label for="hero-search-location" class="sr-only">Modelo de trabalho</label>
@@ -56,7 +56,8 @@
     <div class="section-heading">
         <div>
             <h2>Oportunidades em destaque</h2>
-            <p>Seleção atualizada com links públicos das empresas e plataformas de recrutamento.</p>
+            <p>Compare requisitos e confira a origem do anúncio antes de se candidatar ou compartilhar.</p>
+            <p><a th:href="@{/unidade-2/publicacao}">Experimentar a publicação de vaga</a></p>
         </div>
         <a class="btn btn-outline" th:href="@{/vagas}">Ver todas as vagas</a>
     </div>

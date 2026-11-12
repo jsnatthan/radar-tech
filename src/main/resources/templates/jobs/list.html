@@ -5,7 +5,7 @@
         <div>
             <span class="eyebrow">Radar Tech</span>
             <h1>Vagas reais de TI</h1>
-            <p class="u-muted">Busque por cargo, empresa ou tecnologia. Remotas valem para todo o Brasil; h�bridas e presenciais s�o focadas na Para�ba.</p>
+            <p class="u-muted">Busque por cargo, empresa ou tecnologia. Remotas valem para todo o Brasil; híbridas e presenciais são focadas na Paraíba.</p>
         </div>
         <a class="btn btn-primary" th:href="@{/divulgar}">
             <svg class="icon" aria-hidden="true"><use href="/images/icons.svg#icon-plus"></use></svg>
@@ -16,7 +16,7 @@
     <form class="filter-bar" th:action="@{/vagas}" method="get" role="search">
         <label for="jobs-search-q" class="sr-only">Cargo, empresa ou tecnologia</label>
         <div class="filter-search-field">
-            <input id="jobs-search-q" class="input" type="search" name="q" placeholder="Ex: Java, suporte, est�gio, React..." th:value="${q}">
+            <input id="jobs-search-q" class="input" type="search" name="q" placeholder="Ex: Java, suporte, estágio, React..." th:value="${q}">
             <button type="button" class="btn-icon-only filter-search-clear" data-search-clear="#jobs-search-q"
                     aria-label="Limpar busca">
                 <svg class="icon" aria-hidden="true"><use href="/images/icons.svg#icon-close"></use></svg>
@@ -27,12 +27,18 @@
             <option value="">Todos os modelos</option>
             <option th:each="type : ${locationTypes}" th:value="${type.name()}" th:selected="${selectedLocation == type.name()}" th:text="${type.label}"></option>
         </select>
+        <label for="jobs-sort" class="sr-only">Ordenar por</label>
+        <select id="jobs-sort" class="select" name="ordem">
+            <option value="recentes" th:selected="${ordem == 'recentes'}">Mais recentes</option>
+            <option value="cargo" th:selected="${ordem == 'cargo'}">Cargo (A–Z)</option>
+        </select>
         <button class="btn btn-primary" type="submit">
             <svg class="icon" aria-hidden="true"><use href="/images/icons.svg#icon-filter"></use></svg>
             <span>Filtrar</span>
         </button>
-        <a class="btn btn-ghost" th:if="${(q != null && !q.isBlank()) || (selectedLocation != null && !selectedLocation.isBlank())}" th:href="@{/vagas}">Limpar filtros</a>
+        <a class="btn btn-ghost" th:href="@{/vagas}">Limpar filtros</a>
     </form>
+    <p class="u-muted">A ordem segue o critério escolhido. Limpe os filtros para explorar outras oportunidades.</p>
 
     <h2 class="sr-only">Resultados da busca</h2>
     <p class="jobs-count" th:unless="${#lists.isEmpty(jobs)}"

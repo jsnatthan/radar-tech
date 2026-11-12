@@ -45,9 +45,9 @@
                 </div>
                 <div class="form-field" data-city-field>
                     <label for="af-city">Cidade</label>
-                    <input id="af-city" class="input" th:field="*{city}" placeholder="Obrigat�ria para h�brida/presencial" th:attr="aria-invalid=${#fields.hasErrors('city')},aria-describedby=${#fields.hasErrors('city')} ? 'admin-city-error' : null">
+                    <input id="af-city" class="input" th:field="*{city}" placeholder="Obrigatória para híbrida/presencial" th:attr="aria-invalid=${#fields.hasErrors('city')},aria-describedby=${#fields.hasErrors('city')} ? 'admin-city-error' : null">
                 <span id="admin-city-error" class="form-field__error" th:if="${#fields.hasErrors('city')}" th:errors="*{city}"></span>
-                    <span class="form-field__hint" data-city-hint>Obrigat�rio para vagas h�bridas ou presenciais.</span>
+                    <span class="form-field__hint" data-city-hint>Obrigatório para vagas híbridas ou presenciais.</span>
                 </div>
             </div>
 
@@ -74,7 +74,7 @@
                 <span id="admin-salaryRange-error" class="form-field__error" th:if="${#fields.hasErrors('salaryRange')}" th:errors="*{salaryRange}"></span>
             </div>
             <div class="form-field">
-                <label for="af-description">Descri��o</label>
+                <label for="af-description">Descrição</label>
                 <textarea id="af-description" class="textarea" th:field="*{description}" th:attr="aria-invalid=${#fields.hasErrors('description')},aria-describedby=${#fields.hasErrors('description')} ? 'admin-description-error' : null"></textarea>
                 <span id="admin-description-error" class="form-field__error" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
             </div>

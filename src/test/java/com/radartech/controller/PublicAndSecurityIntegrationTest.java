@@ -21,6 +21,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.mock.web.MockHttpSession;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
@@ -98,6 +99,50 @@ class PublicAndSecurityIntegrationTest {
         mockMvc.perform(get("/redefinir-senha"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("auth/reset-password"));
+    }
+
+    @Test
+    void unitTwoSavesAndRestoresPublishedJobsWithinTheSession() throws Exception {
+        var job = jobPostingRepository.searchPublished("Zenvia", JobLocationType.REMOTE).getFirst();
+        var session = new MockHttpSession();
+        mockMvc.perform(post("/vagas/{id}/salvar", job.getId()).session(session))
+                .andExpect(status().isForbidden());
+        mockMvc.perform(post("/vagas/{id}/salvar", job.getId()).session(session).with(csrf()))
+                .andExpect(redirectedUrl("/vagas/salvas"));
+        mockMvc.perform(get("/vagas/salvas").session(session))
+                .andExpect(content().string(org.hamcrest.Matchers.containsString(job.getTitle())));
+        var removal = mockMvc.perform(post("/vagas/{id}/remover-das-salvas", job.getId()).session(session).with(csrf()))
+                .andExpect(redirectedUrl("/vagas/salvas")).andReturn();
+        mockMvc.perform(get("/vagas/salvas").session(session).flashAttrs(removal.getFlashMap()))
+                .andExpect(content().string(org.hamcrest.Matchers.containsString("Desfazer remoção")))
+                .andExpect(content().string(org.hamcrest.Matchers.containsString("Sua lista está vazia")));
+        mockMvc.perform(post("/vagas/{id}/salvar", job.getId()).session(session).with(csrf()))
+                .andExpect(redirectedUrl("/vagas/salvas"));
+        mockMvc.perform(get("/vagas/salvas").session(session))
+                .andExpect(content().string(org.hamcrest.Matchers.containsString(job.getTitle())));
+    }
+
+    @Test
+    void unitTwoReviewsTheRealSourceAndSimulatesPublicationWithoutWritingAJob() throws Exception {
+        var job = jobPostingRepository.searchPublished("Zenvia", JobLocationType.REMOTE).getFirst();
+        mockMvc.perform(get("/vagas/{id}/compartilhar", job.getId()))
+                .andExpect(status().isOk())
+                .andExpect(content().string(org.hamcrest.Matchers.containsString("Revise antes de compartilhar")))
+                .andExpect(content().string(org.hamcrest.Matchers.containsString("example.com")));
+        mockMvc.perform(get("/unidade-2/publicacao"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(org.hamcrest.Matchers.containsString("Simular publicação de vaga")));
+        long count = jobPostingRepository.count();
+        mockMvc.perform(post("/unidade-2/publicacao").with(csrf())
+                        .param("title", "Vaga acadêmica")
+                        .param("company", "Empresa de exemplo")
+                        .param("companyEmail", "demo@example.com")
+                        .param("locationType", "REMOTE")
+                        .param("seniority", "JUNIOR")
+                        .param("contractType", "CLT")
+                        .param("description", "Descrição fictícia usada apenas para revisar o fluxo de publicação."))
+                .andExpect(redirectedUrl("/unidade-2/publicacao"));
+        assertThat(jobPostingRepository.count()).isEqualTo(count);
     }
 
     @Test

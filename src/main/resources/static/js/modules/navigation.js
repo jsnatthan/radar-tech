@@ -43,7 +43,7 @@ function initMobileMenu() {
     const close = () => {
         links.dataset.open = 'false';
         hamburger.setAttribute('aria-expanded', 'false');
-        hamburger.setAttribute('aria-label', 'Abrir menu de navega��o');
+        hamburger.setAttribute('aria-label', 'Abrir menu de navegação');
         document.body.dataset.navOpen = 'false';
         if (scrim) scrim.dataset.open = 'false';
     };
@@ -51,7 +51,7 @@ function initMobileMenu() {
     const open = () => {
         links.dataset.open = 'true';
         hamburger.setAttribute('aria-expanded', 'true');
-        hamburger.setAttribute('aria-label', 'Fechar menu de navega��o');
+        hamburger.setAttribute('aria-label', 'Fechar menu de navegação');
         document.body.dataset.navOpen = 'true';
         if (scrim) scrim.dataset.open = 'true';
         links.querySelector('a, button')?.focus();

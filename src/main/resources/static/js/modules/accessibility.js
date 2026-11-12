@@ -1,4 +1,4 @@
-// Complementa os erros renderizados pelo servidor; a valida��o continua no backend.
+// Complementa os erros renderizados pelo servidor; a validação continua no backend.
 export function initAccessibility() {
     document.querySelectorAll('form').forEach((form, formIndex) => {
         const errors = [...form.querySelectorAll('.form-field__error')].filter(e => e.textContent.trim());

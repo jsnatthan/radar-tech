@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html th:replace="~{fragments/layout :: shell('Vagas salvas', ~{::div})}" xmlns:th="http://www.thymeleaf.org">
+<div class="container page-section">
+    <h1>Vagas salvas</h1>
+    <p class="u-muted">As vagas ficam disponíveis durante sua sessão neste navegador. A lista é privada.</p>
+    <p class="alert alert-info" role="status" th:if="${savedMessage}" th:text="${savedMessage}"></p>
+    <form class="u-mb-4" th:if="${removedId}" th:action="@{/vagas/{id}/salvar(id=${removedId})}" method="post">
+        <button class="btn btn-outline" type="submit">Desfazer remoção</button>
+    </form>
+    <p th:if="${#lists.isEmpty(jobs)}">Sua lista está vazia. Abra os detalhes de uma vaga e escolha “Salvar vaga”.</p>
+    <div class="job-grid u-mb-4" th:unless="${#lists.isEmpty(jobs)}">
+        <article class="card" th:each="job : ${jobs}">
+            <h2><a th:href="@{/vagas/{id}(id=${job.id})}" th:text="${job.title}"></a></h2>
+            <p th:text="|${job.company} · ${job.locationType.label}|"></p>
+            <form th:action="@{/vagas/{id}/remover-das-salvas(id=${job.id})}" method="post">
+                <button class="btn btn-outline" type="submit" th:attr="aria-label=|Remover da lista: ${job.title}|">Remover da lista</button>
+            </form>
+        </article>
+    </div>
+    <a class="btn btn-outline" th:href="@{/vagas}">Voltar para a busca</a>
+</div>
+</html>
